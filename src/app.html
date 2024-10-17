@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			const savedTheme = (() => {
+				try {
+					const settings = JSON.parse(localStorage.getItem('settings'));
+					if (!settings?.theme) return 'System';
+					return settings.theme;
+				} catch {
+					return 'System';
+				}
+			})();
+
+			let theme = (() => {
+				switch (savedTheme) {
+					default:
+					case 'System':
+						return window.matchMedia('(prefers-color-scheme: dark)').matches
+							? 'dark'
+							: 'light';
+					case 'Light':
+						return 'light';
+					case 'Dark':
+						return 'dark';
+				}
+			})();
+
+			document.documentElement.classList.add(theme);
+			document.documentElement.setAttribute('data-theme', theme);
+
+			const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+			const handleThemeChange = (event) => {
+				const newTheme = event.matches ? 'dark' : 'light';
+				if (savedTheme === 'System') {
+					document.documentElement.classList.remove(theme);
+					document.documentElement.classList.add(newTheme);
+					document.documentElement.setAttribute('data-theme', newTheme);
+					theme = newTheme;
+				}
+			};
+			mediaQuery.addEventListener('change', handleThemeChange);
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
