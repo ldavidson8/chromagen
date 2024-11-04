@@ -15,6 +15,14 @@
 			document.body.style.overflow = 'auto';
 		}
 	}
+
+	const NavLinks = [
+		{ href: '/create', text: 'Create' },
+		{ href: '/palettes', text: 'Explore Palettes' },
+		{ href: '/image-extraction', text: 'Image Extraction' },
+		{ href: '/contrast-checker', text: 'Contrast Checker' },
+		{ href: '/palette-visualizer', text: 'Palette Visualizer' },
+	];
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -41,18 +49,11 @@
 		<ul
 			class="hidden lg:flex lg:flex-1 min-h-11 left-[unset] translate-x-[unset] relative xl:absolute xl:left-1/2 xl:-translate-x-1/2"
 		>
-			<li class="flex justify-center">
-				<NavLink href="/create">Create</NavLink>
-			</li>
-			<li class="flex justify-center">
-				<NavLink href="/colors">Colors</NavLink>
-			</li>
-			<li class="flex justify-center">
-				<NavLink href="/image-extraction">Image Extraction</NavLink>
-			</li>
-			<li class="flex justify-center">
-				<NavLink href="/about">About</NavLink>
-			</li>
+			{#each NavLinks as { href, text }, index}
+				<li class="flex justify-center">
+					<NavLink {href}>{text}</NavLink>
+				</li>
+			{/each}
 		</ul>
 		<div class="flex gap-2 px-2">
 			<NavLink href="/about" variant="outline">Create</NavLink>
@@ -68,14 +69,14 @@
 		transition:fly={{ x: 50, duration: 200 }}
 	>
 		<ul class="flex flex-col gap-12 pt-24">
-			{#each ['Colors', 'Colors', 'Colors', 'Colors', 'Colors'] as item, index}
+			{#each NavLinks as { href, text }, index}
 				<li
 					class="flex justify-center opacity-0"
-					style:animation="fadeAndFly 0.5s ease-in-out forwards"
+					style:animation="fadeAndFlyDown 0.25s ease-in-out forwards"
 					style:animation-delay="{index * 50}ms"
 				>
-					<a href="/colors" class="text-3xl font-medium text-neutral-200">
-						{item}
+					<a {href}>
+						{text}
 					</a>
 				</li>
 			{/each}
