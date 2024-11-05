@@ -1,7 +1,27 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
 	import { fly } from 'svelte/transition';
+	import { settings } from '$lib/stores/settings';
 	import NavLink from './NavLink.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import * as Tooltip from '$lib/components/ui/tooltip';
+	import Moon from '~icons/lucide/moon';
+	import Sun from '~icons/lucide/sun';
+	import Laptop from '~icons/lucide/laptop-minimal';
+	import Github from '~icons/lucide/github';
+	import { Root, root } from 'postcss';
+
+	function getThemeIcon(theme: string) {
+		switch (theme) {
+			case 'Light':
+				return Sun;
+			case 'Dark':
+				return Moon;
+			default:
+				return Laptop;
+		}
+	}
+
 	let y: number;
 	let isMobileMenuOpen = false;
 
@@ -55,9 +75,25 @@
 				</li>
 			{/each}
 		</ul>
-		<div class="flex gap-2 px-2">
-			<NavLink href="/about" variant="outline">Create</NavLink>
-			<NavLink href="/about" variant="outline">About</NavLink>
+		<div class="hidden lg:flex gap-2 px-2">
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild let:builder>
+					<Button builders={[builder]} variant="ghost"><Github /></Button>
+				</Tooltip.Trigger>
+				<Tooltip.Content>Source Code</Tooltip.Content>
+			</Tooltip.Root>
+			<Tooltip.Root>
+				<Tooltip.Trigger asChild let:builder>
+					<Button
+						builders={[builder]}
+						variant="ghost"
+						on:click={() => settings.cycleTheme()}
+					>
+						<svelte:component this={getThemeIcon($settings.theme)} />
+					</Button>
+				</Tooltip.Trigger>
+				<Tooltip.Content>Change theme</Tooltip.Content>
+			</Tooltip.Root>
 		</div>
 	</div>
 </nav>

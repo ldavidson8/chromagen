@@ -10,7 +10,8 @@
 	const style = cva('flex items-center text-sm font-medium', {
 		variants: {
 			variant: {
-				default: 'opacity-80 hover:opacity-100 px-7 transition-opacity',
+				default:
+					'opacity-80 hover:opacity-100 px-7 transition-opacity whitespace-nowrap',
 				button:
 					'h-9 w-fit px-5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white transition-colors',
 				outline:
