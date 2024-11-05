@@ -3,8 +3,8 @@
 	import { cva, type VariantProps } from 'class-variance-authority';
 
 	export let href: string;
-	export let rel = undefined;
-	export let target = undefined;
+	export let rel: string | undefined = undefined;
+	export let target: string | undefined = undefined;
 	export let variant: VariantProps<typeof style>['variant'] = 'default';
 
 	const style = cva('flex items-center text-sm font-medium', {

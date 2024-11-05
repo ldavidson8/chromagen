@@ -9,7 +9,6 @@
 	import Sun from '~icons/lucide/sun';
 	import Laptop from '~icons/lucide/laptop-minimal';
 	import Github from '~icons/lucide/github';
-	import { Root, root } from 'postcss';
 
 	function getThemeIcon(theme: string) {
 		switch (theme) {
@@ -77,8 +76,13 @@
 		</ul>
 		<div class="hidden lg:flex gap-2 px-2">
 			<Tooltip.Root>
-				<Tooltip.Trigger asChild let:builder>
-					<Button builders={[builder]} variant="ghost"><Github /></Button>
+				<Tooltip.Trigger>
+					<NavLink
+						href="https://github.com/ldavidson8/chromagen"
+						target="_blank"
+					>
+						<Github />
+					</NavLink>
 				</Tooltip.Trigger>
 				<Tooltip.Content>Source Code</Tooltip.Content>
 			</Tooltip.Root>

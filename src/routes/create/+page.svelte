@@ -3,5 +3,6 @@
 </script>
 
 <h1>Create</h1>
-
-<ColorPicker />
+<div class="mx-auto w-64">
+	<ColorPicker />
+</div>
